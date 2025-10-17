@@ -5,7 +5,7 @@ export default function ProgressBar({ progress }) {
       <div className="absolute inset-0 noise-texture opacity-[0.03] pointer-events-none rounded-[8px]" />
 
       <div className="font-marker text-[9px] sm:text-[10px] text-gray-500 font-bold mb-1.5 tracking-wide relative z-10">
-        tu progreso hoy
+        meta diaria (10 tarjetas)
       </div>
 
       <div className="h-2 sm:h-2.5 bg-gray-100 rounded-full overflow-hidden border-2 border-[#2c2c2c] relative z-10">

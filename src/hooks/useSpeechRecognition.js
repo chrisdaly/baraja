@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 
 export default function useSpeechRecognition() {
   const [isRecording, setIsRecording] = useState(false);
+  const [isPreparing, setIsPreparing] = useState(false);
   const [isSupported, setIsSupported] = useState(
     'webkitSpeechRecognition' in window || 'SpeechRecognition' in window
   );
@@ -33,12 +34,26 @@ export default function useSpeechRecognition() {
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
 
-      setIsRecording(true);
+      // Show preparing state immediately
+      setIsPreparing(true);
+
+      recognition.onstart = () => {
+        // Mic is ready and listening
+        setIsPreparing(false);
+        setIsRecording(true);
+        console.log('🎤 Microphone started - speak now!');
+      };
+
+      recognition.onspeechstart = () => {
+        console.log('🗣️ Speech detected!');
+      };
 
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript.toLowerCase();
         const original = targetText.toLowerCase();
         const similarity = checkSimilarity(transcript, original);
+
+        console.log('📝 Heard:', transcript);
 
         onResult?.({
           transcript,
@@ -47,24 +62,44 @@ export default function useSpeechRecognition() {
         });
 
         setIsRecording(false);
+        setIsPreparing(false);
       };
 
-      recognition.onerror = () => {
+      recognition.onerror = (event) => {
+        console.error('❌ Speech recognition error:', event.error);
         setIsRecording(false);
-        onError?.('No pude escucharte bien');
+        setIsPreparing(false);
+
+        if (event.error === 'no-speech') {
+          onError?.('No escuché nada. Intenta de nuevo.');
+        } else if (event.error === 'audio-capture') {
+          onError?.('No puedo acceder al micrófono');
+        } else {
+          onError?.('No pude escucharte bien');
+        }
       };
 
       recognition.onend = () => {
         setIsRecording(false);
+        setIsPreparing(false);
+        console.log('🛑 Microphone stopped');
       };
 
-      recognition.start();
+      try {
+        recognition.start();
+      } catch (error) {
+        console.error('Error starting recognition:', error);
+        setIsPreparing(false);
+        setIsRecording(false);
+        onError?.('Error al iniciar el micrófono');
+      }
     },
     [isSupported]
   );
 
   return {
     isRecording,
+    isPreparing,
     isSupported,
     startRecognition,
   };

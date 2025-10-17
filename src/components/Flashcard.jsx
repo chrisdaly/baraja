@@ -9,6 +9,7 @@ export default function Flashcard({
   onSpeak,
   onMicStart,
   isRecording,
+  isPreparing,
   swipeDirection,
   isFlipped,
 }) {
@@ -77,14 +78,36 @@ export default function Flashcard({
             </button>
             <button
               onClick={handleMic}
-              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[3px] border-[#2c2c2c] text-xl sm:text-2xl cursor-pointer transition-transform bg-[#ff8b94] shadow-[0_3px_0_#2c2c2c] sm:shadow-[0_4px_0_#2c2c2c] flex items-center justify-center hover:-translate-y-0.5 hover:shadow-[0_5px_0_#2c2c2c] sm:hover:shadow-[0_6px_0_#2c2c2c] active:translate-y-0.5 active:shadow-[0_2px_0_#2c2c2c] ${
-                isRecording ? 'animate-pulse' : ''
+              disabled={isPreparing || isRecording}
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[3px] border-[#2c2c2c] text-xl sm:text-2xl cursor-pointer transition-all flex items-center justify-center relative overflow-hidden ${
+                isPreparing
+                  ? 'bg-[#ffd66d] shadow-[0_3px_0_#2c2c2c] sm:shadow-[0_4px_0_#2c2c2c]'
+                  : isRecording
+                  ? 'bg-[#ff4757] shadow-[0_3px_0_#2c2c2c] sm:shadow-[0_4px_0_#2c2c2c] animate-pulse scale-110'
+                  : 'bg-[#ff8b94] shadow-[0_3px_0_#2c2c2c] sm:shadow-[0_4px_0_#2c2c2c] hover:-translate-y-0.5 hover:shadow-[0_5px_0_#2c2c2c] sm:hover:shadow-[0_6px_0_#2c2c2c] active:translate-y-0.5 active:shadow-[0_2px_0_#2c2c2c]'
               }`}
-              title="Practicar"
+              title={isPreparing ? 'Preparando micrófono...' : isRecording ? '¡Habla ahora!' : 'Practicar'}
             >
-              🎤
+              {isPreparing ? (
+                <span className="animate-spin">⏳</span>
+              ) : isRecording ? (
+                <span className="animate-pulse">🔴</span>
+              ) : (
+                '🎤'
+              )}
             </button>
           </div>
+
+          {/* Microphone status indicator */}
+          {(isPreparing || isRecording) && (
+            <div className="mt-3 animate-fadeIn">
+              <div className={`px-4 py-2 rounded-lg border-2 border-[#2c2c2c] font-marker text-sm font-bold ${
+                isPreparing ? 'bg-[#ffd66d]' : 'bg-[#ff4757] text-white'
+              }`}>
+                {isPreparing ? '⏳ preparando micrófono...' : '🔴 ¡habla ahora!'}
+              </div>
+            </div>
+          )}
 
           <div className="font-indie text-xs sm:text-sm text-gray-400 mt-3 sm:mt-5 font-semibold tracking-wide relative z-10">
             toca para voltear

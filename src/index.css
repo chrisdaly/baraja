@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-[#ffe8b5] overflow-hidden;
+    @apply min-h-screen bg-[#ffe8b5];
   }
 }
 
@@ -23,6 +23,29 @@
   .swipe-right {
     animation: swipeRight 0.5s ease-out forwards;
     will-change: transform, opacity;
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-slideInFromRight {
+    animation: slideInFromRight 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(30px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
   }
 }
 
@@ -45,5 +68,25 @@
   to {
     transform: translateX(120%) rotateZ(15deg) translateZ(0);
     opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }

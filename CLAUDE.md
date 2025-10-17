@@ -145,12 +145,23 @@ Add to `src/lib/mockData.js`:
 }
 ```
 
-## Design Philosophy
+## Design System
+
+See **[DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)** for the complete design system including:
+- Navigation architecture (3-tab bottom nav: home, practice, add)
+- Color palette & semantic colors
+- Typography scale & font usage
+- Iconography (emoji-based)
+- Component patterns (buttons, cards, inputs)
+- Spacing & layout guidelines
+
+### Design Philosophy
 
 - **Spanish Theme**: Red/yellow colors, Málaga background, playful fonts
 - **Aged Paper Aesthetic**: Noise textures, ornate corners, subtle gradients
 - **Playful UX**: Emoji icons, swipe animations, handwritten fonts
 - **Accessibility**: High contrast, clear typography, visual feedback
+- **Consistency**: Always lowercase Spanish text, emoji icons only, 3px borders
 
 ## Common Tasks
 
