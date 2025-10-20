@@ -31,6 +31,7 @@ export default function App() {
   const [hasShownGoalToday, setHasShownGoalToday] = useState(false);
   const [cardKey, setCardKey] = useState(0); // Key to trigger re-render animation
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [selectedCardId, setSelectedCardId] = useState(null); // Track specific card to view
   const [feedback, setFeedback] = useState({
     show: false,
     icon: '',
@@ -41,8 +42,20 @@ export default function App() {
   // Check if we have SRS configured (has loaded, regardless of due cards)
   const hasSRS = !srs.loading && srs.dueCards.length >= 0;
 
-  // Use SRS card if available, otherwise fall back to all cards
-  const currentCard = hasSRS ? srs.currentCard : cards[0];
+  // Determine which card to show
+  // Priority: 1) Specific selected card, 2) SRS current card, 3) First card from all cards
+  let currentCard;
+  if (selectedCardId) {
+    // Find the selected card by ID
+    currentCard = cards.find(card => card.id === selectedCardId);
+  } else if (hasSRS) {
+    // Use SRS card
+    currentCard = srs.currentCard;
+  } else {
+    // Fallback to first card
+    currentCard = cards[0];
+  }
+
   const progress = hasSRS ? srs.progress : (activityStats.learned / DAILY_GOAL) * 100;
 
   const handleSpeak = () => {
@@ -86,6 +99,9 @@ export default function App() {
     // Small delay for fade out
     await new Promise(resolve => setTimeout(resolve, 150));
 
+    // Clear selected card ID to return to SRS flow
+    setSelectedCardId(null);
+
     // 0=again, 1=hard, 2=good, 3=easy
     // Update the card data
     await srs.reviewCard(currentCard.card_id || currentCard.id, quality);
@@ -120,6 +136,14 @@ export default function App() {
     setView('home');
   };
 
+  const handleNavigation = (newView) => {
+    // Clear selected card when navigating to practice view
+    if (newView === 'practice') {
+      setSelectedCardId(null);
+    }
+    setView(newView);
+  };
+
   if (loading || activityLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -142,12 +166,14 @@ export default function App() {
             cards={cards}
             onCardsUpdate={reloadCards}
             onViewCard={(cardId) => {
-              // Switch to practice view when clicking a card
+              // Switch to practice view and show the selected card
+              setSelectedCardId(cardId);
+              setIsFlipped(false); // Reset flip state
               setView('practice');
             }}
           />
         </div>
-        <NavigationBar currentView={view} onNavigate={setView} />
+        <NavigationBar currentView={view} onNavigate={handleNavigation} />
       </>
     );
   }
@@ -167,7 +193,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <NavigationBar currentView={view} onNavigate={setView} />
+          <NavigationBar currentView={view} onNavigate={handleNavigation} />
         </>
       );
     }
@@ -179,10 +205,13 @@ export default function App() {
           <HomeScreen
             activities={activities}
             todayStats={activityStats}
-            onStartPractice={() => setView('practice')}
+            onStartPractice={() => {
+              setSelectedCardId(null); // Clear selected card to use SRS flow
+              setView('practice');
+            }}
           />
         </div>
-        <NavigationBar currentView={view} onNavigate={setView} />
+        <NavigationBar currentView={view} onNavigate={handleNavigation} />
       </>
     );
   }
@@ -200,7 +229,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <NavigationBar currentView={view} onNavigate={setView} />
+        <NavigationBar currentView={view} onNavigate={handleNavigation} />
       </>
     );
   }
@@ -242,7 +271,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <NavigationBar currentView={view} onNavigate={setView} />
+        <NavigationBar currentView={view} onNavigate={handleNavigation} />
       </>
     );
   }
@@ -326,7 +355,7 @@ export default function App() {
         />
       </div>
 
-      <NavigationBar currentView={view} onNavigate={setView} />
+      <NavigationBar currentView={view} onNavigate={handleNavigation} />
     </>
   );
 }
