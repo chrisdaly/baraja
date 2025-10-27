@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debug SRS State</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 2px solid #333;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .error {
+      color: red;
+      padding: 10px;
+      background: #fee;
+      border-radius: 4px;
+    }
+    .success {
+      color: green;
+      padding: 10px;
+      background: #efe;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Baraja SRS Debug Tool</h1>
+
+  <div class="section">
+    <h2>Configuration</h2>
+    <div id="config"></div>
+  </div>
+
+  <div class="section">
+    <h2>All Cards</h2>
+    <button onclick="loadCards()">Load Cards</button>
+    <div id="cards"></div>
+  </div>
+
+  <div class="section">
+    <h2>User Card Progress</h2>
+    <button onclick="loadProgress()">Load Progress</button>
+    <div id="progress"></div>
+  </div>
+
+  <div class="section">
+    <h2>Due Cards (from get_due_cards function)</h2>
+    <button onclick="loadDueCards()">Load Due Cards</button>
+    <div id="dueCards"></div>
+  </div>
+
+  <div class="section">
+    <h2>Actions</h2>
+    <button onclick="resetAllProgress()" style="background: #ff6b6b; color: white;">
+      🔄 Reset All Progress (make all cards new)
+    </button>
+    <div id="actionResult"></div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    // Read env vars from localStorage for this debug tool
+    const SUPABASE_URL = prompt('Enter your Supabase URL:');
+    const SUPABASE_KEY = prompt('Enter your Supabase Anon Key:');
+
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      document.body.innerHTML = '<div class="error">❌ Supabase credentials required!</div>';
+    }
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const MOCK_USER_ID = '00000000-0000-0000-0000-000000000000';
+
+    document.getElementById('config').innerHTML = `
+      <p><strong>Supabase URL:</strong> ${SUPABASE_URL}</p>
+      <p><strong>User ID:</strong> ${MOCK_USER_ID}</p>
+      <p><strong>Current Time:</strong> ${new Date().toISOString()}</p>
+    `;
+
+    window.loadCards = async function() {
+      try {
+        const { data, error } = await supabase
+          .from('cards')
+          .select('*')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        document.getElementById('cards').innerHTML = `
+          <p><strong>Total Cards:</strong> ${data.length}</p>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Spanish</th>
+              <th>English</th>
+              <th>Created</th>
+            </tr>
+            ${data.map(card => `
+              <tr>
+                <td>${card.id.substring(0, 8)}...</td>
+                <td>${card.spanish}</td>
+                <td>${card.english}</td>
+                <td>${new Date(card.created_at).toLocaleString()}</td>
+              </tr>
+            `).join('')}
+          </table>
+        `;
+      } catch (err) {
+        document.getElementById('cards').innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      }
+    };
+
+    window.loadProgress = async function() {
+      try {
+        const { data, error } = await supabase
+          .from('user_card_progress')
+          .select('*, cards(spanish)')
+          .eq('user_id', MOCK_USER_ID)
+          .order('last_reviewed', { ascending: false });
+
+        if (error) throw error;
+
+        const now = new Date();
+
+        document.getElementById('progress').innerHTML = `
+          <p><strong>Total Progress Records:</strong> ${data.length}</p>
+          <table>
+            <tr>
+              <th>Card</th>
+              <th>Status</th>
+              <th>Last Reviewed</th>
+              <th>Next Review</th>
+              <th>Time Until Due</th>
+              <th>Interval</th>
+              <th>Ease</th>
+              <th>Reps</th>
+            </tr>
+            ${data.map(p => {
+              const nextReview = p.next_review ? new Date(p.next_review) : null;
+              const timeDiff = nextReview ? (nextReview - now) / (1000 * 60 * 60) : null;
+              const isDue = nextReview && nextReview <= now;
+
+              return `
+                <tr style="${isDue ? 'background: #ffffcc;' : ''}">
+                  <td>${p.cards?.spanish || 'Unknown'}</td>
+                  <td>${p.status}</td>
+                  <td>${p.last_reviewed ? new Date(p.last_reviewed).toLocaleString() : 'Never'}</td>
+                  <td>${nextReview ? nextReview.toLocaleString() : 'Not set'}</td>
+                  <td>${timeDiff !== null ? (timeDiff > 0 ? `in ${timeDiff.toFixed(1)}h` : `${Math.abs(timeDiff).toFixed(1)}h overdue`) : '-'}</td>
+                  <td>${p.interval_days} days</td>
+                  <td>${p.ease_factor?.toFixed(2) || '-'}</td>
+                  <td>${p.repetitions || 0}</td>
+                </tr>
+              `;
+            }).join('')}
+          </table>
+        `;
+      } catch (err) {
+        document.getElementById('progress').innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      }
+    };
+
+    window.loadDueCards = async function() {
+      try {
+        const { data, error } = await supabase.rpc('get_due_cards', {
+          user_uuid: MOCK_USER_ID
+        });
+
+        if (error) throw error;
+
+        document.getElementById('dueCards').innerHTML = `
+          <p><strong>Cards Due for Review:</strong> ${data.length}</p>
+          ${data.length === 0 ? '<p class="error">❌ No cards due! This is why you see "todo hecho"</p>' : ''}
+          <table>
+            <tr>
+              <th>Spanish</th>
+              <th>English</th>
+              <th>Status</th>
+              <th>Next Review</th>
+              <th>Interval</th>
+            </tr>
+            ${data.map(card => `
+              <tr>
+                <td>${card.spanish}</td>
+                <td>${card.english}</td>
+                <td>${card.status}</td>
+                <td>${card.next_review ? new Date(card.next_review).toLocaleString() : 'Not set'}</td>
+                <td>${card.interval_days} days</td>
+              </tr>
+            `).join('')}
+          </table>
+        `;
+      } catch (err) {
+        document.getElementById('dueCards').innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      }
+    };
+
+    window.resetAllProgress = async function() {
+      if (!confirm('This will delete ALL your progress and make all cards new again. Are you sure?')) {
+        return;
+      }
+
+      try {
+        const { error } = await supabase
+          .from('user_card_progress')
+          .delete()
+          .eq('user_id', MOCK_USER_ID);
+
+        if (error) throw error;
+
+        document.getElementById('actionResult').innerHTML = `
+          <div class="success">✅ All progress reset! Reload your app to see all cards as new.</div>
+        `;
+      } catch (err) {
+        document.getElementById('actionResult').innerHTML = `
+          <div class="error">Error: ${err.message}</div>
+        `;
+      }
+    };
+
+    // Auto-load on page load
+    loadCards();
+    loadProgress();
+    loadDueCards();
+  </script>
+</body>
+</html>

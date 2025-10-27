@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baraja Icon Concepts</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      color: #2c2c2c;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .concept {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .concept h2 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #2c2c2c;
+    }
+    .concept p {
+      margin: 0 0 20px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    .icon-display {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .icon-wrapper {
+      text-align: center;
+    }
+    .icon-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 8px;
+    }
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+    .pros {
+      text-align: left;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .pros h3 {
+      font-size: 12px;
+      color: #666;
+      margin: 0 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pros ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+    .pros li {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎴 Baraja App Icon Concepts</h1>
+  <p class="subtitle">Choose your favorite design for the Spanish flashcard app</p>
+
+  <div class="grid">
+
+    <!-- Concept 1: Playing Card with B -->
+    <div class="concept">
+      <h2>1. Classic Playing Card</h2>
+      <p>Simple playing card with bold "B" letter</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Card shape -->
+            <rect x="36" y="28" width="120" height="136" fill="white" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+
+            <!-- Spanish flag stripes -->
+            <rect x="36" y="28" width="120" height="30" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="36" y="134" width="120" height="30" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="40" y="58" width="112" height="76" fill="#ffc400"/>
+
+            <!-- Letter B -->
+            <text x="96" y="122" font-family="Arial Black, sans-serif" font-size="72" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+
+            <!-- Corner decorations -->
+            <circle cx="48" cy="40" r="3" fill="#ffc400"/>
+            <circle cx="144" cy="152" r="3" fill="#ffc400"/>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="36" y="28" width="120" height="136" fill="white" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="36" y="28" width="120" height="30" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="36" y="134" width="120" height="30" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="40" y="58" width="112" height="76" fill="#ffc400"/>
+            <text x="96" y="122" font-family="Arial Black, sans-serif" font-size="72" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+            <circle cx="48" cy="40" r="3" fill="#ffc400"/>
+            <circle cx="144" cy="152" r="3" fill="#ffc400"/>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>Clear brand identity with "B"</li>
+          <li>Spanish flag colors prominent</li>
+          <li>Card theme obvious</li>
+          <li>Works well at small sizes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Concept 2: Stacked Cards -->
+    <div class="concept">
+      <h2>2. Card Stack</h2>
+      <p>Layered flashcards showing depth</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Back card (rotated) -->
+            <g transform="translate(96, 96) rotate(-8) translate(-60, -70)">
+              <rect width="120" height="140" fill="#ffc400" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+            </g>
+
+            <!-- Middle card (rotated) -->
+            <g transform="translate(96, 96) rotate(4) translate(-60, -70)">
+              <rect width="120" height="140" fill="white" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="10" y="10" width="100" height="25" fill="#c60b1e" rx="4"/>
+            </g>
+
+            <!-- Front card -->
+            <rect x="36" y="26" width="120" height="140" fill="white" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="46" y="36" width="100" height="25" fill="#c60b1e" rx="4"/>
+            <rect x="46" y="71" width="100" height="3" fill="#e0e0e0" rx="1.5"/>
+            <rect x="46" y="81" width="100" height="3" fill="#e0e0e0" rx="1.5"/>
+            <rect x="46" y="91" width="70" height="3" fill="#e0e0e0" rx="1.5"/>
+
+            <!-- Spanish flag stripe on bottom -->
+            <rect x="46" y="141" width="100" height="15" fill="#ffc400" rx="4"/>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <g transform="translate(96, 96) rotate(-8) translate(-60, -70)">
+              <rect width="120" height="140" fill="#ffc400" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+            </g>
+            <g transform="translate(96, 96) rotate(4) translate(-60, -70)">
+              <rect width="120" height="140" fill="white" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="10" y="10" width="100" height="25" fill="#c60b1e" rx="4"/>
+            </g>
+            <rect x="36" y="26" width="120" height="140" fill="white" rx="10" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="46" y="36" width="100" height="25" fill="#c60b1e" rx="4"/>
+            <rect x="46" y="71" width="100" height="3" fill="#e0e0e0" rx="1.5"/>
+            <rect x="46" y="81" width="100" height="3" fill="#e0e0e0" rx="1.5"/>
+            <rect x="46" y="91" width="70" height="3" fill="#e0e0e0" rx="1.5"/>
+            <rect x="46" y="141" width="100" height="15" fill="#ffc400" rx="4"/>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>Shows "deck of cards" concept</li>
+          <li>Dynamic with rotation</li>
+          <li>Suggests learning progression</li>
+          <li>Professional look</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Concept 3: Minimalist Flag Card -->
+    <div class="concept">
+      <h2>3. Flag Card</h2>
+      <p>Clean Spanish flag as flashcard</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Card -->
+            <rect x="26" y="46" width="140" height="100" fill="white" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Spanish flag pattern -->
+            <rect x="26" y="46" width="140" height="25" fill="#c60b1e" rx="12"/>
+            <rect x="26" y="71" width="140" height="50" fill="#ffc400"/>
+            <rect x="26" y="121" width="140" height="25" fill="#c60b1e" rx="12"/>
+
+            <!-- Border overlay -->
+            <rect x="26" y="46" width="140" height="100" fill="none" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Subtle shadow/depth -->
+            <rect x="31" y="146" width="130" height="4" fill="#2c2c2c" opacity="0.15" rx="2"/>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="26" y="46" width="140" height="100" fill="white" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="26" y="46" width="140" height="25" fill="#c60b1e" rx="12"/>
+            <rect x="26" y="71" width="140" height="50" fill="#ffc400"/>
+            <rect x="26" y="121" width="140" height="25" fill="#c60b1e" rx="12"/>
+            <rect x="26" y="46" width="140" height="100" fill="none" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="31" y="146" width="130" height="4" fill="#2c2c2c" opacity="0.15" rx="2"/>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>Super simple and clean</li>
+          <li>Instantly recognizable as Spanish</li>
+          <li>Bold colors stand out</li>
+          <li>Scales perfectly</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Concept 4: Stylized B in Circle -->
+    <div class="concept">
+      <h2>4. Bold B Badge</h2>
+      <p>Modern badge with strong typography</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Outer circle (red) -->
+            <circle cx="96" cy="96" r="72" fill="#c60b1e" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Middle circle (yellow) -->
+            <circle cx="96" cy="96" r="58" fill="#ffc400" stroke="#2c2c2c" stroke-width="4"/>
+
+            <!-- Inner circle (white) -->
+            <circle cx="96" cy="96" r="46" fill="white" stroke="#2c2c2c" stroke-width="4"/>
+
+            <!-- Letter B -->
+            <text x="96" y="122" font-family="Arial Black, sans-serif" font-size="64" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <circle cx="96" cy="96" r="72" fill="#c60b1e" stroke="#2c2c2c" stroke-width="5"/>
+            <circle cx="96" cy="96" r="58" fill="#ffc400" stroke="#2c2c2c" stroke-width="4"/>
+            <circle cx="96" cy="96" r="46" fill="white" stroke="#2c2c2c" stroke-width="4"/>
+            <text x="96" y="122" font-family="Arial Black, sans-serif" font-size="64" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>Modern badge aesthetic</li>
+          <li>Spanish flag in rings</li>
+          <li>Strong brand identity</li>
+          <li>Works great as app icon</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Concept 5: Card Fan -->
+    <div class="concept">
+      <h2>5. Card Fan</h2>
+      <p>Hand of cards spread like a fan</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Left card (rotated) -->
+            <g transform="translate(96, 130) rotate(-25) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+            </g>
+
+            <!-- Left-center card (rotated) -->
+            <g transform="translate(96, 130) rotate(-12) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#ffc400" rx="4"/>
+            </g>
+
+            <!-- Center card -->
+            <g transform="translate(96, 130) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+              <text x="40" y="70" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+            </g>
+
+            <!-- Right-center card (rotated) -->
+            <g transform="translate(96, 130) rotate(12) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#ffc400" rx="4"/>
+            </g>
+
+            <!-- Right card (rotated) -->
+            <g transform="translate(96, 130) rotate(25) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+            </g>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <g transform="translate(96, 130) rotate(-25) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+            </g>
+            <g transform="translate(96, 130) rotate(-12) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#ffc400" rx="4"/>
+            </g>
+            <g transform="translate(96, 130) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+              <text x="40" y="70" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" text-anchor="middle" fill="#2c2c2c">B</text>
+            </g>
+            <g transform="translate(96, 130) rotate(12) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#ffc400" rx="4"/>
+            </g>
+            <g transform="translate(96, 130) rotate(25) translate(-40, -80)">
+              <rect width="80" height="110" fill="white" rx="8" stroke="#2c2c2c" stroke-width="4"/>
+              <rect x="8" y="8" width="64" height="16" fill="#c60b1e" rx="4"/>
+            </g>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>True "baraja" (deck) representation</li>
+          <li>Dynamic and playful</li>
+          <li>Shows multiple cards concept</li>
+          <li>Unique among flashcard apps</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Concept 6: Speech Bubble Card -->
+    <div class="concept">
+      <h2>6. Learning Card</h2>
+      <p>Card with speech/learning elements</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Main card -->
+            <rect x="32" y="40" width="128" height="112" fill="white" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Spanish text area (red) -->
+            <rect x="32" y="40" width="128" height="38" fill="#c60b1e" rx="12"/>
+            <text x="96" y="66" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="white">hola</text>
+
+            <!-- English text area (yellow) -->
+            <rect x="42" y="88" width="108" height="54" fill="#ffc400" rx="8"/>
+            <text x="96" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c2c2c">hello</text>
+            <text x="96" y="128" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#2c2c2c" opacity="0.7">🔊 👄</text>
+
+            <!-- Border overlay -->
+            <rect x="32" y="40" width="128" height="112" fill="none" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="32" y="40" width="128" height="112" fill="white" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="32" y="40" width="128" height="38" fill="#c60b1e" rx="12"/>
+            <text x="96" y="66" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="white">hola</text>
+            <rect x="42" y="88" width="108" height="54" fill="#ffc400" rx="8"/>
+            <text x="96" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c2c2c">hello</text>
+            <text x="96" y="128" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#2c2c2c" opacity="0.7">🔊 👄</text>
+            <rect x="32" y="40" width="128" height="112" fill="none" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+      <div class="pros">
+        <h3>✓ Strengths</h3>
+        <ul>
+          <li>Shows actual learning content</li>
+          <li>Hints at voice features</li>
+          <li>Clearly a translation tool</li>
+          <li>Friendly and approachable</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 16px; margin-top: 20px;">
+    <h2 style="margin: 0 0 20px 0; color: #2c2c2c;">Next Steps</h2>
+    <p style="color: #666; max-width: 600px; margin: 0 auto 20px auto;">
+      Choose your favorite concept and I'll generate the actual PNG icon files (16x16, 32x32, 192x192, 512x512)
+      and update your HTML with all the proper favicon tags!
+    </p>
+    <p style="color: #999; font-size: 14px;">
+      Or let me know if you want variations/tweaks to any of these designs
+    </p>
+  </div>
+
+</body>
+</html>

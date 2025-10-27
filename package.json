@@ -9,7 +9,8 @@
     "dev:all": "npm run server & npm run dev",
     "build": "vite build",
     "preview": "vite preview",
-    "import-ui-cards": "node import-ui-cards.js"
+    "import-ui-cards": "node import-ui-cards.js",
+    "generate-icons": "node generate-icons.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.3",
@@ -26,6 +27,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
+    "sharp": "^0.34.4",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
   }

@@ -14,6 +14,7 @@ import useTextToSpeech from './hooks/useTextToSpeech';
 import useSpeechRecognition from './hooks/useSpeechRecognition';
 import useDailyActivity from './hooks/useDailyActivity';
 import useSRS from './hooks/useSRS';
+import { isSupabaseConfigured } from './lib/supabase';
 
 const suits = ['🏆', '⚜️', '🌟', '👑', '💎', '🎭', '🎨', '🎪'];
 
@@ -39,8 +40,8 @@ export default function App() {
     heard: '',
   });
 
-  // Check if we have SRS configured (has loaded, regardless of due cards)
-  const hasSRS = !srs.loading && srs.dueCards.length >= 0;
+  // Check if we have SRS configured (Supabase must be configured and loaded)
+  const hasSRS = isSupabaseConfigured() && !srs.loading;
 
   // Determine which card to show
   // Priority: 1) Specific selected card, 2) SRS current card, 3) First card from all cards

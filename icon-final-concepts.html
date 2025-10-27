@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baraja Icon - Final Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      color: #2c2c2c;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .concept {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .concept h2 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #2c2c2c;
+    }
+    .concept p {
+      margin: 0 0 20px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    .icon-display {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .icon-wrapper {
+      text-align: center;
+    }
+    .icon-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 8px;
+    }
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+    .recommended {
+      border: 3px solid #ffc400;
+      box-shadow: 0 6px 12px rgba(255, 196, 0, 0.3);
+    }
+    .badge {
+      background: #ffc400;
+      color: #2c2c2c;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎴 Baraja App Icons - Matching Your Header</h1>
+  <p class="subtitle">Icons that match the bold, playful "BARAJA" branding</p>
+
+  <div class="grid">
+
+    <!-- Concept A: Bold Text on Flag Card -->
+    <div class="concept recommended">
+      <div class="badge">⭐ RECOMMENDED</div>
+      <h2>Option A: Bold BARAJA</h2>
+      <p>Matches your header exactly - italic, bold text on Spanish flag</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Card shape with flag stripes -->
+            <rect x="16" y="36" width="160" height="120" fill="#c60b1e" rx="16" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="16" y="66" width="160" height="60" fill="#ffc400"/>
+
+            <!-- Border -->
+            <rect x="16" y="36" width="160" height="120" fill="none" rx="16" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- BARAJA text with italic styling -->
+            <defs>
+              <filter id="shadow1">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.4"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="110"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="42"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow1)"
+            >BARAJA</text>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="16" y="36" width="160" height="120" fill="#c60b1e" rx="16" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="16" y="66" width="160" height="60" fill="#ffc400"/>
+            <rect x="16" y="36" width="160" height="120" fill="none" rx="16" stroke="#2c2c2c" stroke-width="5"/>
+            <defs>
+              <filter id="shadow1b">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.4"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="110"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="42"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow1b)"
+            >BARAJA</text>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept B: Just the B (simplified) -->
+    <div class="concept recommended">
+      <div class="badge">⭐ RECOMMENDED</div>
+      <h2>Option B: Bold "B"</h2>
+      <p>Simplified - just the "B" with same italic style</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Card shape with flag stripes -->
+            <rect x="26" y="36" width="140" height="120" fill="#c60b1e" rx="14" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="26" y="66" width="140" height="60" fill="#ffc400"/>
+
+            <!-- Border -->
+            <rect x="26" y="36" width="140" height="120" fill="none" rx="14" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Big B with italic styling -->
+            <defs>
+              <filter id="shadow2">
+                <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.3"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="125"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="90"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow2)"
+            >B</text>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="26" y="36" width="140" height="120" fill="#c60b1e" rx="14" stroke="#2c2c2c" stroke-width="5"/>
+            <rect x="26" y="66" width="140" height="60" fill="#ffc400"/>
+            <rect x="26" y="36" width="140" height="120" fill="none" rx="14" stroke="#2c2c2c" stroke-width="5"/>
+            <defs>
+              <filter id="shadow2b">
+                <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.3"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="125"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="90"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow2b)"
+            >B</text>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept C: Circular Badge Version -->
+    <div class="concept">
+      <h2>Option C: Badge Style</h2>
+      <p>Circular badge with bold "B" - modern twist</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Outer circle (red) -->
+            <circle cx="96" cy="96" r="76" fill="#c60b1e" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- Middle circle (yellow) -->
+            <circle cx="96" cy="96" r="64" fill="#ffc400"/>
+
+            <!-- Inner white area -->
+            <circle cx="96" cy="96" r="52" fill="white" stroke="#2c2c2c" stroke-width="4"/>
+
+            <!-- Letter B with italic -->
+            <defs>
+              <filter id="shadow3">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.25"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="120"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="68"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow3)"
+            >B</text>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <circle cx="96" cy="96" r="76" fill="#c60b1e" stroke="#2c2c2c" stroke-width="5"/>
+            <circle cx="96" cy="96" r="64" fill="#ffc400"/>
+            <circle cx="96" cy="96" r="52" fill="white" stroke="#2c2c2c" stroke-width="4"/>
+            <defs>
+              <filter id="shadow3b">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.25"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="120"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="68"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              filter="url(#shadow3b)"
+            >B</text>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept D: Stacked with text -->
+    <div class="concept">
+      <h2>Option D: Two-Tone Stack</h2>
+      <p>Layered look with BARAJA split across colors</p>
+      <div class="icon-display">
+        <div class="icon-wrapper">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+
+            <!-- Back card (offset) -->
+            <rect x="26" y="46" width="140" height="110" fill="#ffc400" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+
+            <!-- Front card -->
+            <rect x="26" y="36" width="140" height="110" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+
+            <!-- BARAJA split design -->
+            <defs>
+              <clipPath id="topHalf">
+                <rect x="0" y="0" width="192" height="91"/>
+              </clipPath>
+              <clipPath id="bottomHalf">
+                <rect x="0" y="91" width="192" height="101"/>
+              </clipPath>
+              <filter id="shadow4">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="rgba(0,0,0,0.2)"/>
+              </filter>
+            </defs>
+
+            <!-- Top part (on red) -->
+            <text
+              x="96"
+              y="100"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="38"
+              font-weight="900"
+              text-anchor="middle"
+              fill="white"
+              transform="skewX(-8)"
+              clip-path="url(#topHalf)"
+              filter="url(#shadow4)"
+            >BARAJA</text>
+
+            <!-- Bottom part (on yellow) -->
+            <text
+              x="96"
+              y="100"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="38"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              clip-path="url(#bottomHalf)"
+              filter="url(#shadow4)"
+            >BARAJA</text>
+          </svg>
+          <div class="icon-label">192x192</div>
+        </div>
+        <div class="icon-wrapper">
+          <svg width="64" height="64" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <rect width="192" height="192" fill="#ffe8b5" rx="42"/>
+            <rect x="26" y="46" width="140" height="110" fill="#ffc400" rx="12" stroke="#2c2c2c" stroke-width="4"/>
+            <rect x="26" y="36" width="140" height="110" fill="#c60b1e" rx="12" stroke="#2c2c2c" stroke-width="5"/>
+            <defs>
+              <clipPath id="topHalf2">
+                <rect x="0" y="0" width="192" height="91"/>
+              </clipPath>
+              <clipPath id="bottomHalf2">
+                <rect x="0" y="91" width="192" height="101"/>
+              </clipPath>
+              <filter id="shadow4b">
+                <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="rgba(0,0,0,0.2)"/>
+              </filter>
+            </defs>
+            <text
+              x="96"
+              y="100"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="38"
+              font-weight="900"
+              text-anchor="middle"
+              fill="white"
+              transform="skewX(-8)"
+              clip-path="url(#topHalf2)"
+              filter="url(#shadow4b)"
+            >BARAJA</text>
+            <text
+              x="96"
+              y="100"
+              font-family="'Fredoka One', Arial Black, sans-serif"
+              font-size="38"
+              font-weight="900"
+              text-anchor="middle"
+              fill="#2c2c2c"
+              transform="skewX(-8)"
+              clip-path="url(#bottomHalf2)"
+              filter="url(#shadow4b)"
+            >BARAJA</text>
+          </svg>
+          <div class="icon-label">64x64 (preview)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 16px;">
+    <h2 style="margin: 0 0 20px 0; color: #2c2c2c;">✨ My Recommendation</h2>
+    <p style="color: #666; max-width: 600px; margin: 0 auto;">
+      <strong>Option B (Bold "B")</strong> is the best choice because:
+    </p>
+    <ul style="text-align: left; max-width: 500px; margin: 20px auto; color: #666; line-height: 1.8;">
+      <li>✅ Matches your header's bold, italic style perfectly</li>
+      <li>✅ Simple enough to recognize at small sizes (16x16)</li>
+      <li>✅ Uses your Spanish flag colors (red/yellow)</li>
+      <li>✅ Strong brand identity with just the "B"</li>
+      <li>✅ Works great as an app icon on mobile</li>
+    </ul>
+    <p style="color: #999; font-size: 14px; margin-top: 20px;">
+      But Option A or C work well too if you prefer more detail!
+    </p>
+  </div>
+
+</body>
+</html>

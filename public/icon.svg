@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#ffe8b5" rx="112"/>
+
+  <!-- Card with Spanish flag stripes -->
+  <rect x="69" y="96" width="374" height="320" fill="#c60b1e" rx="37" stroke="#2c2c2c" stroke-width="13"/>
+  <rect x="69" y="176" width="374" height="160" fill="#ffc400"/>
+
+  <!-- Border overlay -->
+  <rect x="69" y="96" width="374" height="320" fill="none" rx="37" stroke="#2c2c2c" stroke-width="13"/>
+
+  <!-- Big Bold B with italic style and shadow -->
+  <defs>
+    <filter id="textShadow">
+      <feDropShadow dx="8" dy="8" stdDeviation="0" flood-color="#c60b1e" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <text
+    x="256"
+    y="333"
+    font-family="Arial Black, Fredoka One, sans-serif"
+    font-size="240"
+    font-weight="900"
+    text-anchor="middle"
+    fill="#2c2c2c"
+    transform="skewX(-8)"
+    filter="url(#textShadow)"
+  >B</text>
+</svg>
