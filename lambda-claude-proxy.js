@@ -1,48 +1,42 @@
 /**
- * AWS Lambda Function: Claude API Proxy
+ * AWS Lambda Function: Claude API Proxy (Final Version)
  *
- * This function proxies requests from your frontend to the Claude API,
- * keeping your API key secure on the backend.
+ * This version does NOT add CORS headers in the code because
+ * the Lambda Function URL handles CORS automatically.
  *
- * Setup Instructions:
- * 1. Create a new Lambda function in AWS Console
- * 2. Copy this code into the function
- * 3. Add ANTHROPIC_API_KEY to environment variables
- * 4. Create a Function URL with CORS enabled
- * 5. Add the Function URL to your Amplify env vars as VITE_CLAUDE_API_URL
+ * Make sure Function URL has CORS enabled with:
+ * - Allow origin: *
+ * - Allow headers: content-type, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, user-agent
+ * - Allow methods: POST
+ * - Max age: 86400
  */
 
 export const handler = async (event) => {
-  // Handle CORS preflight (check if requestContext exists first)
-  if (event.requestContext?.http?.method === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-      body: '',
-    };
-  }
+  console.log('Request received');
 
   // Parse the request body
-  const body = JSON.parse(event.body || '{}');
+  let body;
+  try {
+    body = JSON.parse(event.body || '{}');
+  } catch (error) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid JSON in request body' })
+    };
+  }
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
   if (!ANTHROPIC_API_KEY) {
+    console.error('ANTHROPIC_API_KEY not configured');
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
       body: JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' })
     };
   }
 
   try {
+    console.log('Calling Claude API...');
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -55,12 +49,9 @@ export const handler = async (event) => {
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error('Claude API error:', response.status, errorText);
       return {
         statusCode: response.status,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
         body: JSON.stringify({
           error: `Claude API error: ${response.status}`,
           details: errorText
@@ -69,23 +60,16 @@ export const handler = async (event) => {
     }
 
     const data = await response.json();
+    console.log('Claude API success');
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
       body: JSON.stringify(data)
     };
   } catch (error) {
     console.error('Error proxying Claude API:', error);
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
       body: JSON.stringify({ error: error.message })
     };
   }
