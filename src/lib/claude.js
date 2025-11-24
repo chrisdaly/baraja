@@ -3,6 +3,11 @@
 const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
 
 export async function extractFlashcardsFromText(spanishText) {
+  // Check if we're in production mode
+  if (!import.meta.env.DEV) {
+    throw new Error('AI extraction is only available in development mode. Run the app locally with "npm run dev:all" to use this feature.');
+  }
+
   if (!ANTHROPIC_API_KEY) {
     throw new Error('ANTHROPIC_API_KEY not configured in .env');
   }
@@ -73,5 +78,6 @@ ${spanishText}`;
 }
 
 export function isClaudeConfigured() {
-  return !!ANTHROPIC_API_KEY;
+  // AI extraction only works in development mode (requires local proxy server)
+  return import.meta.env.DEV && !!ANTHROPIC_API_KEY;
 }
