@@ -1,17 +1,14 @@
-// Production-ready version of claude.js
-// Replace the content of src/lib/claude.js with this file to enable production AI extraction
+// Claude API integration for extracting flashcards from Spanish text
 
 const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
-const CLAUDE_API_URL = import.meta.env.VITE_CLAUDE_API_URL;
 
 export async function extractFlashcardsFromText(spanishText) {
-  // In production, we need either the Lambda URL or local proxy
-  if (!import.meta.env.DEV && !CLAUDE_API_URL) {
-    throw new Error('AI extraction requires VITE_CLAUDE_API_URL in production. See ENABLE-AI-PRODUCTION.md for setup instructions.');
+  // Check if we're in production mode
+  if (!import.meta.env.DEV) {
+    throw new Error('AI extraction is only available in development mode. Run the app locally with "npm run dev:all" to use this feature.');
   }
 
-  // In development, we need the API key for local proxy
-  if (import.meta.env.DEV && !ANTHROPIC_API_KEY) {
+  if (!ANTHROPIC_API_KEY) {
     throw new Error('ANTHROPIC_API_KEY not configured in .env');
   }
 
@@ -44,13 +41,10 @@ Spanish text:
 ${spanishText}`;
 
   try {
-    // Use configured URL, or fall back to defaults
-    const apiUrl = CLAUDE_API_URL ||
-      (import.meta.env.DEV
-        ? 'http://localhost:3001/api/claude'
-        : '/api/claude');
-
-    console.log('🤖 Using Claude API URL:', apiUrl);
+    // Use local proxy server to avoid CORS issues
+    const apiUrl = import.meta.env.DEV
+      ? 'http://localhost:3001/api/claude'
+      : '/api/claude'; // In production, you'd need a serverless function or backend
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -84,7 +78,6 @@ ${spanishText}`;
 }
 
 export function isClaudeConfigured() {
-  // Production: Check for Lambda URL
-  // Development: Check for API key
-  return !!CLAUDE_API_URL || (import.meta.env.DEV && !!ANTHROPIC_API_KEY);
+  // AI extraction only works in development mode (requires local proxy server)
+  return import.meta.env.DEV && !!ANTHROPIC_API_KEY;
 }
