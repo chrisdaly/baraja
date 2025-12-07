@@ -42,6 +42,17 @@ export default function Flashcard({
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'es-ES';
       utterance.rate = 0.85;
+
+      // Try to find a Spanish voice explicitly (mobile browsers need this)
+      const voices = speechSynthesis.getVoices();
+      const spanishVoice =
+        voices.find((v) => v.lang === 'es-ES') ||
+        voices.find((v) => v.lang === 'es-MX') ||
+        voices.find((v) => v.lang.startsWith('es'));
+      if (spanishVoice) {
+        utterance.voice = spanishVoice;
+      }
+
       speechSynthesis.cancel();
       speechSynthesis.speak(utterance);
     }
@@ -126,7 +137,7 @@ export default function Flashcard({
           </div>
 
           <div className="w-full mt-2 sm:mt-3 relative z-10 space-y-2">
-            {examples.map((example, i) => {
+            {(examples || []).map((example, i) => {
               const isExampleFlipped = flippedExamples.includes(i);
               const displayText = typeof example === 'string'
                 ? example

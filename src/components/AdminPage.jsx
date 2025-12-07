@@ -62,14 +62,17 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
     setLoading(true);
 
     try {
+      // Build examples array, filtering out empty ones
+      const allExamples = [
+        { spanish: manualCard.example1_es.trim(), english: manualCard.example1_en.trim() },
+        { spanish: manualCard.example2_es.trim(), english: manualCard.example2_en.trim() },
+        { spanish: manualCard.example3_es.trim(), english: manualCard.example3_en.trim() },
+      ].filter(ex => ex.spanish || ex.english);
+
       const cardData = {
         spanish: manualCard.spanish.trim(),
         english: manualCard.english.trim(),
-        examples: [
-          { spanish: manualCard.example1_es.trim(), english: manualCard.example1_en.trim() },
-          { spanish: manualCard.example2_es.trim(), english: manualCard.example2_en.trim() },
-          { spanish: manualCard.example3_es.trim(), english: manualCard.example3_en.trim() },
-        ],
+        examples: allExamples,
       };
 
       if (editingCard) {
@@ -236,6 +239,17 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'es-ES';
         utterance.rate = 0.85;
+
+        // Try to find a Spanish voice explicitly (mobile browsers need this)
+        const voices = speechSynthesis.getVoices();
+        const spanishVoice =
+          voices.find((v) => v.lang === 'es-ES') ||
+          voices.find((v) => v.lang === 'es-MX') ||
+          voices.find((v) => v.lang.startsWith('es'));
+        if (spanishVoice) {
+          utterance.voice = spanishVoice;
+        }
+
         speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
       }
@@ -323,13 +337,12 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
               </div>
 
               <div className="border-t-2 border-gray-200 pt-4">
-                <h3 className="font-marker font-bold text-sm text-gray-700 mb-3">Ejemplos</h3>
+                <h3 className="font-marker font-bold text-sm text-gray-700 mb-3">Ejemplos <span className="font-indie font-normal text-gray-400">(opcional)</span></h3>
 
                 {[1, 2, 3].map((num) => (
                   <div key={num} className="grid grid-cols-2 gap-4 mb-3">
                     <input
                       type="text"
-                      required
                       value={manualCard[`example${num}_es`]}
                       onChange={(e) =>
                         setManualCard({ ...manualCard, [`example${num}_es`]: e.target.value })
@@ -339,7 +352,6 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
                     />
                     <input
                       type="text"
-                      required
                       value={manualCard[`example${num}_en`]}
                       onChange={(e) =>
                         setManualCard({ ...manualCard, [`example${num}_en`]: e.target.value })

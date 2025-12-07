@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "routeKey": "$default",
+  "rawPath": "/",
+  "rawQueryString": "",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "1.2.3.4",
+      "userAgent": "curl/7.64.1"
+    },
+    "requestId": "test-request-id",
+    "time": "12/Jan/2024:00:00:00 +0000",
+    "timeEpoch": 1704067200000
+  },
+  "body": "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"You are a Spanish language teacher creating flashcards.\\n\\nGiven the following Spanish text, extract useful phrases, idioms, or vocabulary words that would make good flashcards for English speakers learning Spanish.\\n\\nFor each phrase/word you extract:\\n1. Provide the Spanish phrase (lowercase)\\n2. Provide the English translation\\n3. Create 3 example sentences in Spanish with English translations\\n\\nFormat your response as valid JSON array with this structure:\\n[\\n  {\\n    \\\"spanish\\\": \\\"phrase in spanish\\\",\\n    \\\"english\\\": \\\"english translation\\\",\\n    \\\"examples\\\": [\\n      {\\\"spanish\\\": \\\"Example sentence 1.\\\", \\\"english\\\": \\\"Translation 1.\\\"},\\n      {\\\"spanish\\\": \\\"Example sentence 2.\\\", \\\"english\\\": \\\"Translation 2.\\\"},\\n      {\\\"spanish\\\": \\\"Example sentence 3.\\\", \\\"english\\\": \\\"Translation 3.\\\"}\\n    ]\\n  }\\n]\\n\\nExtract 3-5 of the most useful/interesting phrases from the text.\\nOnly return the JSON array, no other text.\\n\\nSpanish text:\\nHoy voy a hacer puente porque es un día festivo.\"}]}",
+  "isBase64Encoded": false
+}

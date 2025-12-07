@@ -1,0 +1,3 @@
+{
+  "body": "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":50,\"messages\":[{\"role\":\"user\",\"content\":\"Say hello in Spanish\"}]}"
+}

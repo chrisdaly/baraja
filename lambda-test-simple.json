@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "routeKey": "$default",
+  "rawPath": "/",
+  "rawQueryString": "",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "1.2.3.4",
+      "userAgent": "test"
+    },
+    "requestId": "test-request-id",
+    "time": "12/Jan/2024:00:00:00 +0000",
+    "timeEpoch": 1704067200000
+  },
+  "body": "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":50,\"messages\":[{\"role\":\"user\",\"content\":\"Say hello in Spanish\"}]}",
+  "isBase64Encoded": false
+}
