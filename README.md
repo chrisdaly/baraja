@@ -1,74 +1,48 @@
-# baraja
+# Baraja
 
-A Spanish language learning flashcard app with voice recognition and text-to-speech features.
+A flashcard app for learning Spanish. Paste raw Spanish text — an article, a caption, a script — and Claude extracts vocabulary into structured flashcards automatically. Cards are reviewed using the SM2 spaced repetition algorithm with flip animations, text-to-speech pronunciation, and speech recognition for speaking practice.
 
 ## Features
 
-- 🎴 Interactive flashcards with flip animations
-- 🔊 Text-to-speech for Spanish pronunciation
-- 🎤 Speech recognition to practice speaking
-- 📊 Progress tracking (daily count, streak, activity calendar)
-- 🔄 Spaced repetition system (SM2 algorithm)
-- 🎨 Beautiful Spanish-themed design (Málaga cityscape)
-- 💾 Supabase integration (optional) with local fallback
-- 🤖 AI-powered flashcard extraction from Spanish text (Claude API)
-- ⚙️ Admin page to manually add cards or extract with AI
+- AI flashcard extraction from raw Spanish text via Claude API
+- SM2 spaced repetition algorithm
+- Animated card flip with text-to-speech and speech recognition (Web Speech API)
+- Progress tracking: daily count, activity streaks, review calendar
+- Falls back to mock data without a Supabase connection
 
-## Quick Start
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite, Tailwind CSS |
+| Database | Supabase (PostgreSQL) |
+| AI | Claude API (Anthropic) via local proxy |
+| Speech | Web Speech API (Chrome/Edge) |
+
+## Running Locally
 
 ```bash
 # Install dependencies
 npm install
 
-# Start development server
-npm run dev
+# Configure environment
+cp .env.example .env
+# Add your Anthropic API key and (optionally) Supabase credentials
+
+# Start the app and Claude proxy
+npm run dev:all
 ```
 
-Open http://localhost:5173 in your browser (Chrome/Edge recommended for full speech recognition support).
+Open http://localhost:5173 in Chrome or Edge (required for speech recognition).
 
-### Using AI Flashcard Extraction
+## Claude API Integration
 
-To use the AI-powered flashcard extraction feature:
+The Anthropic API doesn't allow direct browser requests (CORS), so a lightweight Express proxy (`server.js`) runs on port 3001 and forwards requests server-side.
 
-1. Add your Anthropic API key to `.env`:
-   ```
-   VITE_ANTHROPIC_API_KEY=sk-ant-api03-...
-   ```
+1. Paste Spanish text and click "Extraer Frases con AI"
+2. Frontend sends the text to `localhost:3001/api/claude`
+3. Proxy forwards to `api.anthropic.com/v1/messages`
+4. Claude returns structured flashcard data (phrase, translation, example sentence)
+5. Cards are saved and become immediately reviewable
 
-2. Start both the frontend and proxy server:
-   ```bash
-   # In one terminal
-   npm run server
-
-   # In another terminal
-   npm run dev
-
-   # OR run both together
-   npm run dev:all
-   ```
-
-3. Click the ⚙️ settings icon on the home screen
-4. Switch to "AI Extraction" mode
-5. Paste Spanish text and click "Extraer Frases con AI"
-
-**Note**: The AI extraction requires a local proxy server (`server.js`) to avoid CORS issues with the Anthropic API.
-
-## Setup with Supabase (Optional)
-
-1. Create a Supabase project at https://supabase.com
-2. Run the SQL schema from `CLAUDE.md`
-3. Copy `.env.example` to `.env`
-4. Add your Supabase credentials to `.env`
-
-The app works without Supabase using mock data.
-
-## Tech Stack
-
-- React 18 + Vite
-- Tailwind CSS
-- Supabase (PostgreSQL)
-- Web Speech API
-
-## Development
-
-See `CLAUDE.md` for detailed architecture and development guide.
+The prompt instructs Claude to extract natural phrases rather than isolated vocabulary, prioritising items useful for conversational Spanish.
