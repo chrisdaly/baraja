@@ -9,16 +9,19 @@ import HomeScreen from './components/HomeScreen';
 import DailyGoalModal from './components/DailyGoalModal';
 import CardsManagePage from './components/CardsManagePage';
 import NavigationBar from './components/NavigationBar';
+import DemoBanner from './components/DemoBanner';
 import useFlashcards from './hooks/useFlashcards';
 import useTextToSpeech from './hooks/useTextToSpeech';
 import useSpeechRecognition from './hooks/useSpeechRecognition';
 import useDailyActivity from './hooks/useDailyActivity';
 import useSRS from './hooks/useSRS';
 import { isSupabaseConfigured } from './lib/supabase';
+import { DemoContext, getIsDemo } from './lib/demoContext';
 
 const suits = ['🏆', '⚜️', '🌟', '👑', '💎', '🎭', '🎨', '🎪'];
 
 export default function App() {
+  const isDemo = getIsDemo();
   const { cards, loading, reload: reloadCards } = useFlashcards();
   const { speak } = useTextToSpeech();
   const { isRecording, isPreparing, startRecognition } = useSpeechRecognition();
@@ -33,6 +36,7 @@ export default function App() {
   const [cardKey, setCardKey] = useState(0); // Key to trigger re-render animation
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null); // Track specific card to view
+  const [demoCardIndex, setDemoCardIndex] = useState(0); // Demo mode card cycling
   const [feedback, setFeedback] = useState({
     show: false,
     icon: '',
@@ -44,16 +48,15 @@ export default function App() {
   const hasSRS = isSupabaseConfigured() && !srs.loading;
 
   // Determine which card to show
-  // Priority: 1) Specific selected card, 2) SRS current card, 3) First card from all cards
+  // Priority: 1) Specific selected card, 2) SRS current card, 3) Demo cycling, 4) First card
   let currentCard;
   if (selectedCardId) {
-    // Find the selected card by ID
     currentCard = cards.find(card => card.id === selectedCardId);
+  } else if (isDemo) {
+    currentCard = cards[demoCardIndex % cards.length];
   } else if (hasSRS) {
-    // Use SRS card
     currentCard = srs.currentCard;
   } else {
-    // Fallback to first card
     currentCard = cards[0];
   }
 
@@ -102,6 +105,14 @@ export default function App() {
 
     // Clear selected card ID to return to SRS flow
     setSelectedCardId(null);
+
+    if (isDemo) {
+      // Demo mode: just cycle to next card
+      setDemoCardIndex(prev => prev + 1);
+      setCardKey(prev => prev + 1);
+      setIsTransitioning(false);
+      return;
+    }
 
     // 0=again, 1=hard, 2=good, 3=easy
     // Update the card data
@@ -161,9 +172,10 @@ export default function App() {
   if (view === 'cards') {
     return (
       <>
-        <div className="fixed inset-0 overflow-y-auto pb-20" style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}>
+        <div className={`fixed inset-0 overflow-y-auto pb-20 ${isDemo ? 'pt-8' : ''}`} style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}>
           <Background />
           <CardsManagePage
+            isDemo={isDemo}
             cards={cards}
             onCardsUpdate={reloadCards}
             onViewCard={(cardId) => {
@@ -206,12 +218,36 @@ export default function App() {
           <HomeScreen
             activities={activities}
             todayStats={activityStats}
+            isDemo={isDemo}
+            isRecording={isRecording}
+            isPreparing={isPreparing}
+            onMicStart={() => {
+              startRecognition(
+                '¡bienvenidos!',
+                (result) => {
+                  if (result.success) {
+                    showFeedback('🎉', '¡Excelente!', `Escuché: "${result.transcript}"`);
+                  } else {
+                    showFeedback('💪', '¡Buen intento!', `Escuché: "${result.transcript}"`);
+                  }
+                },
+                (error) => {
+                  showFeedback('😕', 'Error', error);
+                }
+              );
+            }}
             onStartPractice={() => {
               setSelectedCardId(null); // Clear selected card to use SRS flow
               setView('practice');
             }}
           />
         </div>
+        <RecognitionFeedback
+          show={feedback.show}
+          icon={feedback.icon}
+          text={feedback.text}
+          heard={feedback.heard}
+        />
         <NavigationBar currentView={view} onNavigate={handleNavigation} />
       </>
     );
@@ -279,7 +315,7 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center px-3 py-2 sm:p-5 pb-24 overflow-hidden">
+      <div className={`min-h-screen flex items-center justify-center px-3 py-2 sm:p-5 pb-24 overflow-hidden ${isDemo ? 'pt-10' : ''}`}>
         <Background />
 
         <div className="max-w-[420px] w-full relative z-10 flex flex-col justify-center gap-4">

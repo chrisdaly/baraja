@@ -12,6 +12,8 @@ export default function Flashcard({
   isPreparing,
   swipeDirection,
   isFlipped,
+  customBack,
+  customBackExtras,
 }) {
   const [flippedExamples, setFlippedExamples] = useState([]);
 
@@ -59,7 +61,7 @@ export default function Flashcard({
   };
 
   return (
-    <div className="mb-2 sm:mb-4 h-[420px] sm:h-[460px] md:h-[480px] relative flex-shrink-0 overflow-hidden" style={{ perspective: '1000px' }}>
+    <div className="mb-2 sm:mb-4 h-[420px] sm:h-[460px] md:h-[480px] relative flex-shrink-0" style={{ perspective: '1000px' }}>
       <div
         className={`w-full h-full absolute top-0 left-0 transition-transform duration-500 cursor-pointer ${swipeDirection ? swipeDirection : ''}`}
         style={{
@@ -131,11 +133,20 @@ export default function Flashcard({
           <div className="absolute top-[50px] left-5 opacity-10 text-6xl">{suitSymbol}</div>
           <div className="absolute bottom-[50px] right-5 opacity-10 text-6xl rotate-180">{suitSymbol}</div>
 
+          {customBack ? (
+            <div className="relative z-10">
+              {customBack}
+            </div>
+          ) : (
+          <>
           <div className="font-handwritten text-2xl sm:text-3xl md:text-4xl font-bold text-center text-[#2c2c2c] mb-4 sm:mb-6 leading-snug lowercase relative z-10">
             {english}
             <div className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4/5 h-[3px] bg-[#ff8b60] rounded opacity-50" />
           </div>
 
+          {customBackExtras ? (
+            customBackExtras
+          ) : (
           <div className="w-full mt-2 sm:mt-3 relative z-10 space-y-2">
             {(examples || []).map((example, i) => {
               const isExampleFlipped = flippedExamples.includes(i);
@@ -175,6 +186,9 @@ export default function Flashcard({
               );
             })}
           </div>
+          )}
+          </>
+          )}
 
           <div className="font-indie text-xs sm:text-sm text-gray-400 mt-3 sm:mt-5 font-semibold tracking-wide relative z-10">
             toca para voltear

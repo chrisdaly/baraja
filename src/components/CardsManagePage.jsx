@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CardsPage from './CardsPage';
 import AdminPage from './AdminPage';
 
-export default function CardsManagePage({ cards, onCardsUpdate, onViewCard }) {
+export default function CardsManagePage({ cards, onCardsUpdate, onViewCard, isDemo = false }) {
   const [tab, setTab] = useState('view'); // 'view' or 'create'
   const [editingCard, setEditingCard] = useState(null);
 
@@ -79,6 +79,7 @@ export default function CardsManagePage({ cards, onCardsUpdate, onViewCard }) {
             hideHeader
             editingCard={editingCard}
             onSaveEdit={handleSaveEdit}
+            isDemo={isDemo}
           />
         )}
 

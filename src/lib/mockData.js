@@ -1,3 +1,52 @@
+// Sample text for demo AI extraction
+export const demoSampleText = `Cuando le pregunto si prefiere culo o tetas, y me dice que una mujer que le de paz y tranquilidad. Tío, no me tomes el pelo. Siempre va al grano este chico, tiene mucho morro. Me da igual lo que digan los demás, él siempre dice lo que piensa.`;
+
+// Pre-computed mock extraction result for demo mode
+export const mockExtractedCards = [
+  {
+    spanish: 'no me tomes el pelo',
+    english: "don't pull my leg / don't mess with me",
+    examples: [
+      { spanish: '¿Me estás tomando el pelo?', english: 'Are you pulling my leg?' },
+      { spanish: 'No me tomes el pelo, dime la verdad.', english: "Don't mess with me, tell me the truth." },
+      { spanish: 'Le gusta tomar el pelo a sus amigos.', english: 'He likes to tease his friends.' },
+    ],
+  },
+  {
+    spanish: 'ir al grano',
+    english: 'to get to the point / to cut to the chase',
+    examples: [
+      { spanish: 'Vamos al grano, no tengo mucho tiempo.', english: "Let's get to the point, I don't have much time." },
+      { spanish: 'Siempre va al grano en las reuniones.', english: 'He always gets to the point in meetings.' },
+      { spanish: 'Deja de rodeos y ve al grano.', english: 'Stop beating around the bush and get to the point.' },
+    ],
+  },
+  {
+    spanish: 'tener morro',
+    english: 'to have nerve / to be cheeky',
+    examples: [
+      { spanish: '¡Qué morro tienes pidiendo eso!', english: 'What nerve you have asking for that!' },
+      { spanish: 'Tiene mucho morro para llegar tarde sin avisar.', english: "He's got some nerve showing up late without warning." },
+      { spanish: 'Hay que tener morro para decir eso.', english: 'You have to be cheeky to say that.' },
+    ],
+  },
+  {
+    spanish: 'me da igual',
+    english: "I don't care / it's all the same to me",
+    examples: [
+      { spanish: 'Me da igual lo que pienses.', english: "I don't care what you think." },
+      { spanish: '¿Pizza o pasta? Me da igual.', english: "Pizza or pasta? I don't care." },
+      { spanish: 'A él le da igual el resultado.', english: "He doesn't care about the result." },
+    ],
+  },
+];
+
+// Mock extraction function with simulated delay
+export async function mockExtractFlashcards() {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  return mockExtractedCards;
+}
+
 // Mock flashcard data for development without Supabase
 export const mockFlashcards = [
   {

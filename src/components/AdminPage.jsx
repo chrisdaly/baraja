@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { extractFlashcardsFromText, isClaudeConfigured } from '../lib/claude';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { mockExtractFlashcards, demoSampleText } from '../lib/mockData';
 import Flashcard from './Flashcard';
 
-export default function AdminPage({ hideHeader = false, editingCard = null, onSaveEdit = null }) {
+export default function AdminPage({ hideHeader = false, editingCard = null, onSaveEdit = null, isDemo = false }) {
   console.log('🔧 AdminPage rendering', { editingCard });
 
   const [mode, setMode] = useState('manual'); // 'manual' or 'ai'
@@ -37,7 +38,7 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
   });
 
   // AI extraction state
-  const [spanishText, setSpanishText] = useState('');
+  const [spanishText, setSpanishText] = useState(isDemo ? demoSampleText : '');
   const [extractedCards, setExtractedCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [cardsToSave, setCardsToSave] = useState([]); // Cards user wants to keep
@@ -53,6 +54,11 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
 
   const handleManualSubmit = async (e) => {
     e.preventDefault();
+
+    if (isDemo) {
+      showMessage('success', 'in the full app, this card would be saved to your deck');
+      return;
+    }
 
     if (!isSupabaseConfigured()) {
       showMessage('error', 'Supabase no está configurado');
@@ -119,7 +125,7 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
   };
 
   const handleAIExtract = async () => {
-    if (!isClaudeConfigured()) {
+    if (!isDemo && !isClaudeConfigured()) {
       showMessage('error', 'Claude API no está configurado. Agrega VITE_ANTHROPIC_API_KEY a tu .env');
       return;
     }
@@ -135,7 +141,9 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
     setCardsToSave([]);
 
     try {
-      const cards = await extractFlashcardsFromText(spanishText);
+      const cards = isDemo
+        ? await mockExtractFlashcards()
+        : await extractFlashcardsFromText(spanishText);
       setExtractedCards(cards);
       showMessage('success', `¡${cards.length} tarjetas extraídas! Revisa cada una.`);
     } catch (error) {
@@ -201,6 +209,15 @@ export default function AdminPage({ hideHeader = false, editingCard = null, onSa
   };
 
   const handleSaveExtractedCards = async () => {
+    if (isDemo) {
+      showMessage('success', `in the full app, ${cardsToSave.length} cards would be saved to your deck`);
+      setExtractedCards([]);
+      setCardsToSave([]);
+      setSpanishText(demoSampleText);
+      setCurrentCardIndex(0);
+      return;
+    }
+
     if (!isSupabaseConfigured()) {
       showMessage('error', 'Supabase no está configurado');
       return;
