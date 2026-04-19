@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Flashcard from './Flashcard';
 
-export default function HomeScreen({ activities, todayStats, onStartPractice, isDemo = false, onMicStart, isRecording, isPreparing }) {
+export default function HomeScreen({ activities, todayStats, onStartPractice, onBlog, isDemo = false, onMicStart, isRecording, isPreparing }) {
   const [demoFlipped, setDemoFlipped] = useState(false);
   const currentStreak = calculateStreak(activities);
   const todayActivity = activities.find(
@@ -112,6 +112,14 @@ export default function HomeScreen({ activities, todayStats, onStartPractice, is
             )}
           </>
         )}
+
+        {/* Blog link */}
+        <button
+          onClick={onBlog}
+          className="font-indie text-sm text-gray-400 hover:text-gray-600 transition-colors underline lowercase"
+        >
+          how it's built
+        </button>
 
       </div>
     </div>

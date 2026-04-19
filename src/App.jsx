@@ -8,6 +8,7 @@ import RecognitionFeedback from './components/RecognitionFeedback';
 import HomeScreen from './components/HomeScreen';
 import DailyGoalModal from './components/DailyGoalModal';
 import CardsManagePage from './components/CardsManagePage';
+import BlogPost from './components/BlogPost';
 import NavigationBar from './components/NavigationBar';
 import DemoBanner from './components/DemoBanner';
 import useFlashcards from './hooks/useFlashcards';
@@ -28,7 +29,9 @@ export default function App() {
   const { activities, todayStats: activityStats, updateTodayActivity, loading: activityLoading, DAILY_GOAL } = useDailyActivity();
   const srs = useSRS();
 
-  const [view, setView] = useState('home'); // 'home' | 'practice' | 'add'
+  const [view, setView] = useState(() => {
+    return window.location.hash === '#blog' ? 'blog' : 'home';
+  }); // 'home' | 'practice' | 'cards' | 'blog'
   const [swipeDirection, setSwipeDirection] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
@@ -43,6 +46,25 @@ export default function App() {
     text: '',
     heard: '',
   });
+
+  // Sync hash with view
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#blog') {
+        setView('blog');
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (view === 'blog') {
+      window.location.hash = '#blog';
+    } else if (window.location.hash === '#blog') {
+      history.replaceState(null, '', window.location.pathname);
+    }
+  }, [view]);
 
   // Check if we have SRS configured (Supabase must be configured and loaded)
   const hasSRS = isSupabaseConfigured() && !srs.loading;
@@ -191,6 +213,19 @@ export default function App() {
     );
   }
 
+  // Show blog post
+  if (view === 'blog') {
+    return (
+      <>
+        <div className="fixed inset-0 overflow-y-auto pb-20" style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}>
+          <Background />
+          <BlogPost onBack={() => setView('home')} />
+        </div>
+        <NavigationBar currentView={view} onNavigate={handleNavigation} />
+      </>
+    );
+  }
+
   // Show home screen by default
   if (view === 'home') {
     // Check if there are no cards - show empty state
@@ -221,6 +256,7 @@ export default function App() {
             isDemo={isDemo}
             isRecording={isRecording}
             isPreparing={isPreparing}
+            onBlog={() => setView('blog')}
             onMicStart={() => {
               startRecognition(
                 '¡bienvenidos!',
